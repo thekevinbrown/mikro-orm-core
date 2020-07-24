@@ -133,8 +133,8 @@ class Configuration {
     }
     initDriver() {
         if (!this.options.driver) {
-            const driver = Configuration.PLATFORMS[this.options.type];
-            this.options.driver = utils_1.Utils.requireFrom(driver[1], this.options.baseDir)[driver[0]];
+            const { className, module } = Configuration.PLATFORMS[this.options.type];
+            this.options.driver = module()[className];
         }
         return new this.options.driver(this);
     }
@@ -200,9 +200,9 @@ Configuration.DEFAULTS = {
     },
 };
 Configuration.PLATFORMS = {
-    mongo: ['MongoDriver', '@mikro-orm/mongodb'],
-    mysql: ['MySqlDriver', '@mikro-orm/mysql'],
-    mariadb: ['MariaDbDriver', '@mikro-orm/mariadb'],
-    postgresql: ['PostgreSqlDriver', '@mikro-orm/postgresql'],
-    sqlite: ['SqliteDriver', '@mikro-orm/sqlite'],
+    mongo: { className: 'MongoDriver', module: () => require('@mikro-orm/mongodb') },
+    mysql: { className: 'MySqlDriver', module: () => require('@mikro-orm/mysql') },
+    mariadb: { className: 'MariaDbDriver', module: () => require('@mikro-orm/mariadb') },
+    postgresql: { className: 'PostgreSqlDriver', module: () => require('@mikro-orm/postgresql') },
+    sqlite: { className: 'SqliteDriver', module: () => require('@mikro-orm/sqlite') },
 };

@@ -67,11 +67,26 @@ export declare class Configuration<D extends IDatabaseDriver = IDatabaseDriver> 
         };
     };
     static readonly PLATFORMS: {
-        mongo: string[];
-        mysql: string[];
-        mariadb: string[];
-        postgresql: string[];
-        sqlite: string[];
+        mongo: {
+            className: string;
+            module: () => any;
+        };
+        mysql: {
+            className: string;
+            module: () => any;
+        };
+        mariadb: {
+            className: string;
+            module: () => any;
+        };
+        postgresql: {
+            className: string;
+            module: () => any;
+        };
+        sqlite: {
+            className: string;
+            module: () => any;
+        };
     };
     private readonly options;
     private readonly logger;
